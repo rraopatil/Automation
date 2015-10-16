@@ -30,7 +30,8 @@ public class ExcelDataConfig {
 			
 			FileInputStream fs = new FileInputStream(src);
 			wb=new XSSFWorkbook(fs);
-			sheet1=wb.getSheetAt(0);
+			
+			
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -38,8 +39,11 @@ public class ExcelDataConfig {
 	}
 
 	
-	public String getData(String sheetnumber,int row, int column)
+	public String getData(int sheetnumber,int row, int column)
 	{
+		
+		sheet1=wb.getSheetAt(sheetnumber);
+		
 		String data=sheet1.getRow(row).getCell(column).getStringCellValue();
 		
 		return data;
@@ -50,4 +54,55 @@ public class ExcelDataConfig {
 		return  wrksheet.getLastRowNum();
 	}
 
+	
+	
+	public  String username(int sheetnumber)
+	{
+		String username1=null;
+		sheet1=wb.getSheetAt(sheetnumber);
+		int rowcount= sheet1.getLastRowNum();
+		for (int i=1;i<=rowcount;i++)
+		{
+			 Row row = sheet1.getRow(i);
+		    username1=sheet1.getRow(i).getCell(0).getStringCellValue();
+		
+		  //System.out.println(username1);
+	}
+		
+		 return username1;	
+		
+}
+	
+
+	public  String password(int sheetnumber)
+	{
+		String password1=null;
+		
+		sheet1=wb.getSheetAt(sheetnumber);
+		
+		int rowcount= sheet1.getLastRowNum();
+		
+		
+		
+		for (int i=1;i<=rowcount;i++){
+			
+			Row row = sheet1.getRow(i);
+			
+			//String data=sheet1.getRow(i).getCell(0).getStringCellValue();
+			
+			//System.out.println("Data for username"+data);
+			
+		    			
+			 for (int j = 0; j < row.getLastCellNum(); j++) {
+		
+				 
+				 password1=row.getCell(j).getStringCellValue();
+			 }
+		}
+		
+		 return password1;	
+		
+}
+	
+	
 }

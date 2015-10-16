@@ -8,7 +8,12 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
-public class ReadExcel  {
+public class ReadExcel1 extends ExcelDataConfig {
+
+	public ReadExcel1(String ExcelSheetPath) {
+		super(ExcelSheetPath);
+		// TODO Auto-generated constructor stub
+	}
 
 	public static void  main(String[] args)throws Exception{
 	File src=new File("C:/JavaProjects/Automation/Automation_Testdata/Testdata.xlsx");
