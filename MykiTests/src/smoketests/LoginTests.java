@@ -6,13 +6,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
 import java.io.IOException;
 import java.util.List;
-
 import login.Login;
 import logout.Logout;
-import operations.ExcelDataConfig;
 import excelimport.DataFieldValues;
 import excelimport.ReadData;
 
@@ -29,7 +26,7 @@ public class LoginTests extends ReadData {
 	}
 
 	public WebDriver mydriver;
-	protected List<DataFieldValues> datasheetlist=readDataFromExcel("C:/JavaProjects/Automation/Automation_Testdata.Testdata.xlsx","Sheet1");
+	public List<DataFieldValues> datasheetlist=readDataFromExcel("C:/JavaProjects/Automation/Automation_Testdata.Testdata.xlsx","Sheet1");
 	@Before
 	public void beforeTest()// here in this case, prerequisite is open the browser along with url
 	{
