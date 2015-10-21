@@ -15,6 +15,7 @@ import excelimport.ReadData;
 
 
 
+
 public class LoginTests extends ReadData {
 	protected String GetUserName;
 	protected String GetPassword;
@@ -26,7 +27,7 @@ public class LoginTests extends ReadData {
 	}
 
 	public WebDriver mydriver;
-	public List<DataFieldValues> datasheetlist=readDataFromExcel("C:/JavaProjects/Automation/Automation_Testdata.Testdata.xlsx","Sheet1");
+	public List<DataFieldValues> datasheetList=readDataFromExcel("C:/JavaProjects/Automation/Automation_Testdata/Testdata.xlsx","Sheet1");
 	@Before
 	public void beforeTest()// here in this case, prerequisite is open the browser along with url
 	{
@@ -38,12 +39,12 @@ public class LoginTests extends ReadData {
 	@After
 	public void afterTest()
 	{
-		Logout logout = new Logout(mydriver);//using constructor, we are initializing the object 
-		logout.LogoutButton().click();
+		//Logout logout = new Logout(mydriver);//using constructor, we are initializing the object 
+		//logout.LogoutButton().click();
 	}
 	
 	@Test
-	public void loginTest() throws IOException
+	public void loginTest() throws IOException, InterruptedException
 	{
 		Login login = new Login(mydriver);
 		if (datasheetList.size()==0){
@@ -53,37 +54,25 @@ public class LoginTests extends ReadData {
 		}
 		else{
 			
-			for (DataFieldValues gData :datasheetList ){
+			for (DataFieldValues gData :datasheetList ){//enhanced for loop example for (int myvalue : myArray)
 				GetUserName=gData.getUserName();
 				GetPassword=gData.getPassword();
 				login.UserName().sendKeys(GetUserName);
 				login.Password().sendKeys(GetPassword);
 				login.LoginButton().click();
+				Thread.sleep(4000);
+				login.AvailableCards();
+				Thread.sleep(4000);
+				Logout logout = new Logout(mydriver);//using constructor, we are initializing the object 
+				logout.LogoutButton().click();
+				
+				
+				
 			}
-			
+			mydriver.close();
 		}
 		
-		//ExcelDataConfig Excel=new ExcelDataConfig("C:/JavaProjects/Automation/Automation_Testdata/Testdata.xlsx");
-		//Excel.username(0);
-		
-		
-		   //login.LoginButton().click();
-		  //System.out.println(username1);
 
-		
-		
-		
-		
-		
-		
-		
-		//login.UserName().sendKeys(Excel.username(0));
-		//login.Password().sendKeys(Excel.password(0));
-			   
-	//		login.UserName().sendKeys(Sheet1.getCell().getContents());
-		//	login.Password().sendKeys("password");
-		    
-		//login.LoginButton().click();
 
 	}
 		

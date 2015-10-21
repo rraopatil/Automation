@@ -17,7 +17,7 @@ public class Cpsubmenulist extends BaseElements {
 	}
 
 		
-public  WebElement Oneofftopup(){
+public  WebElement Oneofftopup(){//topup after login into account
 	
 	
 	WebElement element = mydriver.findElement(By.linkText("Top up myki"));
@@ -26,6 +26,15 @@ public  WebElement Oneofftopup(){
     return Clicklinks.waitToEnableinXpath(mydriver,30,"//li[@id='navOne-offtopup']/a");
 	}
 	
+
+public  WebElement AnonymousTopup(){//top up without logging
+	
+	
+	WebElement element = mydriver.findElement(By.linkText("Top up myki"));
+	Actions action = new Actions(mydriver);
+    action.moveToElement(element).build().perform();
+    return Clicklinks.waitToEnableinXpath(mydriver,30,"//li[@id='navChoosetopup']/a");
+	}
 	
 	public WebElement Setupautotopup(){
 		
