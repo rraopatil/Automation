@@ -7,11 +7,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-
 import login.Login;
-import logout.Logout;
 import cpsubmenu.Cpsubmenulist;
 import excelimport.DataFieldValues;
 import excelimport.ReadData;
@@ -86,9 +83,13 @@ public List<DataFieldValues> datasheetList=readDataFromExcel("C:/JavaProjects/Au
 		operations.Submitnext().click();
 		operations.Topupmykimoney().click();
 		operations.Submitrequest().click();
+<<<<<<< HEAD
 	    ((WebElement) operations.Chooseamount(GetTopupamount)).sendKeys(GetTopupamount);
 	    
 	    //sendKeys(GetTopupamount);
+=======
+		operations.Chooseamount().selectByVisibleText(GetTopupamount);
+>>>>>>> origin/master
 		System.out.println(GetTopupamount);
  		operations.Submitrequest().submit();
 		
