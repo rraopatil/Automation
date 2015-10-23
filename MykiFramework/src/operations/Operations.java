@@ -44,10 +44,11 @@ public WebElement Topupmykipass()
 	return	Radiobuttonselector.waitToEnableinRadiobutton(mydriver, 10, "ctl00_uxContentPlaceHolder_topuppass");
 }
 	
-public  List<WebElement> Chooseamount(String GetTopupamount)
+public  Select Chooseamount()
 {
-	
-	return Topupdetails.waitToEnablebyID(mydriver, 10, "ctl00_uxContentPlaceHolder_uxAmounts",GetTopupamount);
+	WebElement topupAmount = WaitActions.waitToEnablebyID(mydriver, 10, "ctl00_uxContentPlaceHolder_uxAmounts");
+	Select topupAmountSelect = new Select(topupAmount);
+	return topupAmountSelect;
 }
 
 public WebElement Creditcard1()
