@@ -12,8 +12,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Topupdetails {
 
-		public static  List<WebElement> waitToEnablebyID(WebDriver mydriver,int timeinseconds,String idstring,String GetTopupamount)
+		public static  List<WebElement>  waitToEnablebyID(WebDriver mydriver,int timeinseconds,String idstring,String GetTopupamount)
 	{
+			String value= GetTopupamount;
+			
 		WebDriverWait wait = new WebDriverWait(mydriver, timeinseconds);
 		WebElement topupvalue = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(idstring)));	
 		//WebElement topupvalue = mydriver.findElement(By.id("idstring")); 
@@ -30,6 +32,7 @@ public class Topupdetails {
 		}
 		}
 		return options;
+		
 
 		
 		

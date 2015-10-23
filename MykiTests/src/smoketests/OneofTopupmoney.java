@@ -86,7 +86,9 @@ public List<DataFieldValues> datasheetList=readDataFromExcel("C:/JavaProjects/Au
 		operations.Submitnext().click();
 		operations.Topupmykimoney().click();
 		operations.Submitrequest().click();
-		operations.Chooseamount(GetTopupamount)).sendKeys(GetTopupamount);
+	    ((WebElement) operations.Chooseamount(GetTopupamount)).sendKeys(GetTopupamount);
+	    
+	    //sendKeys(GetTopupamount);
 		System.out.println(GetTopupamount);
  		operations.Submitrequest().submit();
 		
