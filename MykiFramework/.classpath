@@ -52,5 +52,6 @@
 	<classpathentry kind="lib" path="C:/JavaProjects/Automation/Jars/poi-bin-3.13-20150929/poi-3.13/lib/commons-logging-1.1.3.jar"/>
 	<classpathentry kind="lib" path="C:/JavaProjects/Automation/Jars/poi-bin-3.13-20150929/poi-3.13/lib/junit-4.12.jar"/>
 	<classpathentry kind="lib" path="C:/JavaProjects/Automation/Jars/poi-bin-3.13-20150929/poi-3.13/lib/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="C:/JavaProjects/Automation/Jars/JDBC/sqljdbc4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

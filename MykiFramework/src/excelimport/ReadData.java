@@ -73,7 +73,7 @@ public class ReadData {
 			datasheet.setExpiryYear(ccyear);
 			
 			//datasheet.setExpiryYear(cell.getStringCellValue());
-			cell = (XSSFCell) row.getCell(11);
+			cell = (XSSFCell) row.getCell(10);
 			String ccv = df.formatCellValue(cell);
 					
 			datasheet.setCVV(ccv);

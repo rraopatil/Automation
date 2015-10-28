@@ -1,6 +1,11 @@
 package smoketests;
 
+import java.beans.Statement;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.junit.After;
@@ -8,11 +13,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
 import login.Login;
 import cpsubmenu.Cpsubmenulist;
+import dbconnection.Dbconnection;
 import excelimport.DataFieldValues;
 import excelimport.ReadData;
 import operations.Operations;
+
 
 
 public class OneofTopupmoney extends ReadData {
@@ -25,6 +33,8 @@ public class OneofTopupmoney extends ReadData {
 	protected String GetExpirymonth;
 	protected String GetExpiryYear;
 	protected String GetCVV;
+	protected static Connection con;
+	
 	
 	
 	
@@ -40,7 +50,7 @@ public List<DataFieldValues> datasheetList=readDataFromExcel("C:/JavaProjects/Au
 	public void beforeTest() throws InterruptedException// here in this case, prerequisite is open the browser along with url
 	{
 		mydriver = new FirefoxDriver();//my driver is object of class FirefoxDriver
-		mydriver.get("https://www.mymyki.com.au/NTSWebPortal/Login.aspx");
+		mydriver.get("https://10.0.23.61/NTSWebPortal/login.aspx");
 		Login login = new Login(mydriver);
 		mydriver.manage().window().maximize();
 		
@@ -54,7 +64,7 @@ public List<DataFieldValues> datasheetList=readDataFromExcel("C:/JavaProjects/Au
 	}
 	
 	@Test
-	public void topup() throws IOException, InterruptedException
+	public void topup() throws IOException, InterruptedException, SQLException
 	{
 		Login login = new Login(mydriver);
 		if (datasheetList.size()==0){
@@ -83,27 +93,90 @@ public List<DataFieldValues> datasheetList=readDataFromExcel("C:/JavaProjects/Au
 		operations.Submitnext().click();
 		operations.Topupmykimoney().click();
 		operations.Submitrequest().click();
-<<<<<<< HEAD
-	    ((WebElement) operations.Chooseamount(GetTopupamount)).sendKeys(GetTopupamount);
-	    
-	    //sendKeys(GetTopupamount);
-=======
 		operations.Chooseamount().selectByVisibleText(GetTopupamount);
->>>>>>> origin/master
-		System.out.println(GetTopupamount);
- 		operations.Submitrequest().submit();
-		
-		
 		Thread.sleep(4000);
-		//login.AvailableCards();
+		operations.Submitrequest().click();
 		Thread.sleep(4000);
+		operations.Creditcard1().sendKeys(Getcreditcardnumber1);
+		operations.Creditcard2().sendKeys(Getcreditcardnumber2);
+		operations.Creditcard3().sendKeys(Getcreditcardnumber3);
+		operations.Creditcard4().sendKeys(Getcreditcardnumber4);
+		operations.Creditcardmonth().selectByVisibleText(GetExpirymonth);
+		operations.Creditcardyear().selectByVisibleText(GetExpiryYear);
+		operations.CreditcardCVV().sendKeys(GetCVV);
+		operations.Submitrequest().click();
+		Thread.sleep(5000);
+		operations.Submitrequest().click();
+		Thread.sleep(5000);
 		//Logout logout = new Logout(mydriver);//using constructor, we are initializing the object 
 		//logout.LogoutButton().click();
 	
+		String webordernumber=operations.weborderref().getText();
+		//System.out.println(GetcardPAN+"  "+ webordernumber);
+		String connectionurl="jdbc:sqlserver://10.0.23.64:1433;databaseName=MicrosoftDynamicsAX;integratedSecurity=true";
+        try {
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		} catch (ClassNotFoundException e1) {
+		
+			e1.printStackTrace();
+		}
+	  
+		try {
+			con = DriverManager.getConnection(connectionurl);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}{
+	    		if (con != null) {
+	    		
+	    			  java.sql.Statement st =  con.createStatement();
+	    			  
+	    			   String sqlStr = "select activitynumber,ntscardpan,ntsweborderreference from smmactivities where createddatetime>GETDATE()-1 and purpose like 'Request For Add Value - Internet' order by recid desc";
+	    			
+	    			  ResultSet rs = ((java.sql.Statement) st).executeQuery(sqlStr);
+	    			 	 
+	    			
+	    				  while(rs!= null && rs.next())
+	    			  {
+	    				
+	    					  String SRnumber = rs.getString("activitynumber");
+	    					  String cardpan=rs.getString("ntscardpan");
+	    					  String reference=rs.getString("ntsweborderreference");
+	    					
+	    						if (GetcardPAN.equals(cardpan))
+	    						{
+	    							System.out.println(cardpan+" "+SRnumber+" "+reference);
+	    							break;
+	    						}
+	    					
+	    				    					  
+	    			  }//end of while loop
+	    		rs.close();	
+	    		}
+	    			  
+	    			  
+	    			  
+		}
+			}
+		}
+	}
 }
-}
+
+		
+		
+				 
+		
+			
+		
+			
+		
+        
+
+
 	
-}
-}
+
+
+
+
 
 

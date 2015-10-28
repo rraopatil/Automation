@@ -46,14 +46,14 @@ public WebElement Topupmykipass()
 	
 public  Select Chooseamount()
 {
-<<<<<<< HEAD
+
 	
-return Topupdetails.waitToEnablebyID(mydriver, 10, "ctl00_uxContentPlaceHolder_uxAmounts",GetTopupamount);
-=======
+//return Topupdetails.waitToEnablebyID(mydriver, 10, "ctl00_uxContentPlaceHolder_uxAmounts",GetTopupamount);
+
 	WebElement topupAmount = WaitActions.waitToEnablebyID(mydriver, 10, "ctl00_uxContentPlaceHolder_uxAmounts");
 	Select topupAmountSelect = new Select(topupAmount);
 	return topupAmountSelect;
->>>>>>> origin/master
+
 }
 
 public WebElement Creditcard1()
@@ -77,15 +77,22 @@ public WebElement Creditcard4()
 }
 
 
-public List<WebElement> Creditcardmonth()
+public Select Creditcardmonth()
 {
-	return Topupdetails.waitToEnablebylist(mydriver, 10, "ctl00_uxContentPlaceHolder_uxMonthList");
+	//return Topupdetails.waitToEnablebylist(mydriver, 10, "ctl00_uxContentPlaceHolder_uxMonthList");
+	
+	WebElement _month = WaitActions.waitToEnablebyID(mydriver, 10, "ctl00_uxContentPlaceHolder_uxMonthList");
+	Select monthSelect = new Select(_month);
+	return monthSelect;
 }
 
 
-public List<WebElement> Creditcardyear()
+public Select Creditcardyear()
 {
-	return Topupdetails.waitToEnablebylist1(mydriver, 10, "ctl00_uxContentPlaceHolder_uxYearList");
+	//return Topupdetails.waitToEnablebylist1(mydriver, 10, "ctl00_uxContentPlaceHolder_uxYearList");
+	WebElement _year = WaitActions.waitToEnablebyID(mydriver, 10, "ctl00_uxContentPlaceHolder_uxYearList");
+	Select yearSelect = new Select(_year);
+	return yearSelect;
 }
 
 
@@ -95,7 +102,10 @@ public WebElement CreditcardCVV()
 }
 
 
-
+public WebElement weborderref(){
+	
+	return WaitActions.waitToEnableinXpath(mydriver, 10, ".//*[@id='content']/fieldset/p[2]/strong");
+}
 
 
 }
