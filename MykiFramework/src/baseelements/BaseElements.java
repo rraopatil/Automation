@@ -30,5 +30,10 @@ public WebElement Submitnext()
 	return WaitActions.waitToEnablebyID(mydriver, 60, "ctl00_uxContentPlaceHolder_uxnext");
 }
 
+public WebElement SubmitNext()
+{
+	return WaitActions.waitToEnablebyID(mydriver, 60, "ctl00_uxContentPlaceHolder_uxNext");
+}
+
 }
 

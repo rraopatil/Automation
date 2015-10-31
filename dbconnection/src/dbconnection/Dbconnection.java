@@ -10,10 +10,8 @@ import java.sql.SQLException;
 
 public class Dbconnection {
 	
-	private static Connection con;
-
-		
-	
+private static Connection con;
+			
 	public static void main(String[] args) {
 		
 	    try {
@@ -22,8 +20,7 @@ public class Dbconnection {
 	        
 	    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 	    	
-	    	//String connectionurl="jdbc:sqlserver://10.0.23.64:1433;databasename=MicrosoftDynamicsAX";
-	    	Connection con = DriverManager.getConnection(connectionurl);{
+	       	Connection con = DriverManager.getConnection(connectionurl);{
 	    		if (con != null) {
 	    			  System.out.println("Connected");
 	    			}
@@ -42,18 +39,7 @@ public class Dbconnection {
 				  
 			}
 				  
-			//if (rs != null){
-				
-				//System.out.println(rs);
-				
-			//}
-	    	
-	    	//Connection con = DriverManager.getConnection(connectionurl, "ramachandrarao.patil", "R@mbo1008");
-	        		
-	        		//getConnection(connectionurl,"ramachandrarao.patil","R@mbo1008");
-	     // System.out.println("Connected Successfully");
-
-
+			
 	    } catch (ClassNotFoundException e) {
 	  System.out.println("Could not find the database driver " + e.getMessage());
 	    } catch (SQLException e) {

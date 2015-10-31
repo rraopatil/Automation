@@ -1,5 +1,6 @@
 package smoketests;
 
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,15 +14,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import login.Login;
 import cpsubmenu.Cpsubmenulist;
-import excelimport.DataFieldValues;
-import excelimport.ReadData;
+import excelimport.DataFieldValuesforepassanonymous;
+import excelimport.ReadDataforepassanonymous;
 import operations.Operations;
 
 
 
-public class OneofTopupmoney extends ReadData {
+public class OneofTopupepass extends ReadDataforepassanonymous {
 	protected String GetcardPAN;
-	protected String GetTopupamount;
+	protected String GetDuration;
+	protected String GetZoneLow;
+	protected String GetZoneHigh;
 	protected String Getcreditcardnumber1;
 	protected String Getcreditcardnumber2;
 	protected String Getcreditcardnumber3;
@@ -34,19 +37,19 @@ public class OneofTopupmoney extends ReadData {
 	
 	
 	
-public OneofTopupmoney() throws Exception {
+public OneofTopupepass() throws Exception {
 		super();
 		
 	}
 
 public WebDriver mydriver;
-public List<DataFieldValues> datasheetList=readDataFromExcel("C:/JavaProjects/Automation/Automation_Testdata/Testdata.xlsx","Sheet1");
+public List<DataFieldValuesforepassanonymous> datasheetList=readDataFromExcel("C:/JavaProjects/Automation/Automation_Testdata/Testdata.xlsx","epass");
 	
 	@Before
 	public void beforeTest() throws InterruptedException// here in this case, prerequisite is open the browser along with url
 	{
 		mydriver = new FirefoxDriver();//my driver is object of class FirefoxDriver
-		mydriver.get("https://10.0.23.61/NTSWebPortal/login.aspx");
+		mydriver.get("https://10.0.18.61/NTSWebPortal/login.aspx");
 		Login login = new Login(mydriver);
 		mydriver.manage().window().maximize();
 		
@@ -70,13 +73,17 @@ public List<DataFieldValues> datasheetList=readDataFromExcel("C:/JavaProjects/Au
 		}
 		else{
 			
-			for (DataFieldValues gData :datasheetList ){//enhanced for loop example for (int myvalue : myArray)
+			for (DataFieldValuesforepassanonymous gData :datasheetList ){//enhanced for loop example for (int myvalue : myArray)
 	
 		Cpsubmenulist mysubmenu = new Cpsubmenulist(mydriver);
 		mysubmenu.AnonymousTopup().click();
 		
 		GetcardPAN=gData.getCardPAN();
-		GetTopupamount=gData.getTopupamount();
+		GetDuration=gData.getDuration();
+		GetZoneLow=gData.getZoneLow();
+		GetZoneHigh=gData.getZoneHigh();
+		Thread.sleep(3000);
+		
 		Getcreditcardnumber1=gData.getCreditcardnumber1();
 		Getcreditcardnumber2=gData.getCreditcardnumber2();
 		Getcreditcardnumber3=gData.getCreditcardnumber3();
@@ -87,11 +94,12 @@ public List<DataFieldValues> datasheetList=readDataFromExcel("C:/JavaProjects/Au
 		Operations operations = new Operations(mydriver);
 		operations.Anonymoustopupmykimoney().sendKeys(GetcardPAN);
 		operations.Submitnext().click();
-		operations.Topupmykimoney().click();
+		operations.Topupmykipass().click();
 		operations.Submitrequest().click();
-		operations.Chooseamount().selectByVisibleText(GetTopupamount);
-		Thread.sleep(4000);
-		operations.Submitrequest().click();
+		operations.Mykipassduration().sendKeys(GetDuration);
+		operations.Zonelow().selectByVisibleText(GetZoneLow);
+		operations.Zonehigh().selectByVisibleText(GetZoneHigh);
+		operations.SubmitNext().click();
 		Thread.sleep(4000);
 		operations.Creditcard1().sendKeys(Getcreditcardnumber1);
 		operations.Creditcard2().sendKeys(Getcreditcardnumber2);
@@ -109,7 +117,7 @@ public List<DataFieldValues> datasheetList=readDataFromExcel("C:/JavaProjects/Au
 	
 		String webordernumber=operations.weborderref().getText();
 		//System.out.println(GetcardPAN+"  "+ webordernumber);
-		String connectionurl="jdbc:sqlserver://10.0.23.64:1433;databaseName=MicrosoftDynamicsAX;integratedSecurity=true";
+		String connectionurl="jdbc:sqlserver://10.0.18.64:1433;databaseName=MicrosoftDynamicsAX;integratedSecurity=true";
         try {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		} catch (ClassNotFoundException e1) {
@@ -127,7 +135,7 @@ public List<DataFieldValues> datasheetList=readDataFromExcel("C:/JavaProjects/Au
 	    		
 	    			  java.sql.Statement st =  con.createStatement();
 	    			  
-	    			   String sqlStr = "select activitynumber,ntscardpan,ntsweborderreference from smmactivities where createddatetime>GETDATE()-1 and purpose like 'Request For Add Value - Internet' order by recid desc";
+	    			   String sqlStr = "select activitynumber,ntscardpan,ntsweborderreference from smmactivities where createddatetime>GETDATE()-1 and purpose like 'Fare product sale(EFTPOS)_Internet' order by recid desc";
 	    			
 	    			  ResultSet rs = ((java.sql.Statement) st).executeQuery(sqlStr);
 	    			 	 
@@ -156,7 +164,12 @@ public List<DataFieldValues> datasheetList=readDataFromExcel("C:/JavaProjects/Au
 			}
 		}
 	}
-}
+
+
+	
+		
+	}
+
 
 		
 		

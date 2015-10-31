@@ -41,7 +41,7 @@ public WebElement Anonymoustopupmykimoney(){
 public WebElement Topupmykipass()
 {
 	
-	return	Radiobuttonselector.waitToEnableinRadiobutton(mydriver, 10, "ctl00_uxContentPlaceHolder_topuppass");
+	return	Radiobuttonselector.waitToEnableinRadiobutton(mydriver, 10, "ctl00_uxContentPlaceHolder_uxTopUpPass");
 }
 	
 public  Select Chooseamount()
@@ -55,6 +55,30 @@ public  Select Chooseamount()
 	return topupAmountSelect;
 
 }
+
+
+public WebElement Mykipassduration()
+{
+	return WaitActions.waitToEnablebyID(mydriver, 10, "ctl00_uxContentPlaceHolder_uxdays");
+	
+}
+
+public Select Zonelow()
+{
+	WebElement zonelow = WaitActions.waitToEnablebyID(mydriver, 10, "ctl00_uxContentPlaceHolder_uxZonelist");
+	Select zonelowSelect = new Select(zonelow);
+	return zonelowSelect;
+
+}
+
+public Select Zonehigh()
+{
+	WebElement zonehigh = WaitActions.waitToEnablebyID(mydriver, 10, "ctl00_uxContentPlaceHolder_uxZonesTo");
+	Select zonehighSelect = new Select(zonehigh);
+	return zonehighSelect;
+
+}
+
 
 public WebElement Creditcard1()
 {
@@ -106,6 +130,8 @@ public WebElement weborderref(){
 	
 	return WaitActions.waitToEnableinXpath(mydriver, 10, ".//*[@id='content']/fieldset/p[2]/strong");
 }
+
+
 
 
 }
